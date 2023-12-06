@@ -1,0 +1,52 @@
+.homeNavbar {
+  height: 80px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #bbb;
+}
+
+.homeNavbar .logo {
+  height: 50px;
+  width: 150px;
+  height: 60px;
+  width: 160px;
+}
+
+.homeNavbar .logo img {
+  height: 100%;
+  width: 100%;
+  /* object-fit: contain; */
+  /* object-fit: cover; */
+}
+
+.homeNavbar nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.homeNavbar nav a {
+  text-decoration: none;
+  padding: 5px 15px;
+  border: 1px solid #bbb;
+  border-radius: 7px;
+  transition: 300ms;
+}
+
+.homeNavbar nav a.active,
+.homeNavbar nav a:hover {
+  border: 1px solid #1db954;
+  border: 1px solid #bbb;
+  background-color: #1db954;
+  color: #fff;
+  filter: drop-shadow(0 0 2em #1db954aa);
+}
+
+.homeNavbar nav a.active {
+  border: 1px solid #000;
+  filter: drop-shadow(0 0 0em #1db954aa);
+}

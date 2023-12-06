@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Suspense } from 'react';
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom';
+import { Loading } from './components';
+import { Home, Login, NotFound, Register } from './pages';
+import { useAuth } from './utils/hooks/useAuth';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { loggedUser } = useAuth();
+  const isAuth = loggedUser.accessToken;
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Suspense fallback={<Loading />}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+          <Route path="iniciar-sesion">
+            <Route
+              index
+              element={!isAuth ? <Login /> : <Navigate replace to="/" />}
+            />
+            <Route path=":token">
+              <Route
+                index
+                element={!isAuth ? <Login /> : <Navigate replace to="/" />}
+              />
+            </Route>
+          </Route>
+
+          <Route path="register">
+            <Route
+              index
+              element={!isAuth ? <Register /> : <Navigate replace to="/" />}
+            />
+            <Route path=":token">
+              <Route
+                index
+                element={!isAuth ? <Register /> : <Navigate replace to="/" />}
+              />
+            </Route>
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </Suspense>
+  );
 }
 
-export default App
+export default App;
