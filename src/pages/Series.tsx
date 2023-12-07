@@ -1,12 +1,12 @@
 import React from 'react';
 import { HomeLayout } from '../components';
 
-const register = () => {
+const Series = () => {
   return (
     <HomeLayout>
-      <h1>register</h1>
+      <h1>Series</h1>
     </HomeLayout>
   );
 };
 
-export default register;
+export default Series;

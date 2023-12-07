@@ -1,53 +1,73 @@
 import { Suspense } from 'react';
-import {
-  Navigate,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+
+import { Home, Login, Movies, NotFound, Register, Series } from './pages';
+
 import { Loading } from './components';
-import { Home, Login, NotFound, Register } from './pages';
+
 import { useAuth } from './utils/hooks/useAuth';
+import { useColorTheme } from './utils/hooks/useColorTheme';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const { loggedUser } = useAuth();
-  const isAuth = loggedUser.accessToken;
+  const { isAuth } = useAuth();
+  const { state } = useColorTheme();
 
   return (
     <Suspense fallback={<Loading />}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
+      <ToastContainer
+        position="bottom-right"
+        theme={state.theme === 'dark' ? 'dark' : 'light'}
+        autoClose={2000}
+      />
 
-          <Route path="iniciar-sesion">
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="iniciar-sesion">
+          <Route
+            index
+            element={!isAuth ? <Login /> : <Navigate replace to="/" />}
+          />
+          <Route path=":token">
             <Route
               index
               element={!isAuth ? <Login /> : <Navigate replace to="/" />}
             />
-            <Route path=":token">
-              <Route
-                index
-                element={!isAuth ? <Login /> : <Navigate replace to="/" />}
-              />
-            </Route>
           </Route>
+        </Route>
 
-          <Route path="register">
+        <Route path="registro">
+          <Route
+            index
+            element={!isAuth ? <Register /> : <Navigate replace to="/" />}
+          />
+          <Route path=":token">
             <Route
               index
               element={!isAuth ? <Register /> : <Navigate replace to="/" />}
             />
-            <Route path=":token">
-              <Route
-                index
-                element={!isAuth ? <Register /> : <Navigate replace to="/" />}
-              />
-            </Route>
           </Route>
+        </Route>
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
+        <Route
+          path="peliculas"
+          element={
+            !isAuth ? <Navigate replace to="/iniciar-sesion" /> : <Movies />
+          }
+        />
+
+        <Route
+          path="series"
+          element={
+            !isAuth ? <Navigate replace to="/iniciar-sesion" /> : <Series />
+          }
+        />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </Suspense>
   );
 }

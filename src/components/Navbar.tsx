@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './navbar.css';
 import { useAuth } from '../utils/hooks/useAuth';
+import { logOut } from '../utils/redux/userSlice';
 
 const Navbar = () => {
-  const { loggedUser } = useAuth();
+  const { loggedUser, logOut, isAuth } = useAuth();
 
   return (
     <header className="homeNavbar">
@@ -19,12 +20,15 @@ const Navbar = () => {
       </form>
 
       <nav>
-        <NavLink to="/peliculas">Películas</NavLink>
-        <NavLink to="/series">Series</NavLink>
-        {loggedUser.accessToken && <Link to="/">Cerrar sesión</Link>}
-        {!loggedUser.accessToken && (
-          <NavLink to="/iniciar-sesion">Iniciar sesión</NavLink>
+        {isAuth && <NavLink to="/peliculas">Películas</NavLink>}
+        {isAuth && <NavLink to="/series">Series</NavLink>}
+        {isAuth && (
+          <Link to="/" onClick={logOut}>
+            Cerrar sesión
+          </Link>
         )}
+        {!isAuth && <NavLink to="/iniciar-sesion">Iniciar sesión</NavLink>}
+        {!isAuth && <NavLink to="/registro">Registrase</NavLink>}
       </nav>
     </header>
   );

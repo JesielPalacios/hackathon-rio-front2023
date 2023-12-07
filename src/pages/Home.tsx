@@ -1,10 +1,10 @@
-import { Navbar } from '../components';
+import { HomeLayout } from '../components';
 
 const home = () => {
   return (
-    <div>
-      <Navbar />
-    </div>
+    <HomeLayout>
+      <h1>Home</h1>
+    </HomeLayout>
   );
 };
 

@@ -1,9 +1,11 @@
 'use client';
 import React, { PropsWithChildren, createContext, useState } from 'react';
+import { logOut } from '../redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 type AuthContextType = {
-  // isAuth: string | null;
-  // setIsAuth: React.Dispatch<React.SetStateAction<string | null>>;
+  isAuth: string | null;
+  setIsAuth: React.Dispatch<React.SetStateAction<string | null>>;
   activateAuth: (token: string) => void;
   removeAuth: () => void;
 };
@@ -13,21 +15,22 @@ export const AuthContext = createContext<AuthContextType>(
 );
 
 const Provider: React.FC<PropsWithChildren> = ({ children }) => {
-  // const [isAuth, setIsAuth] = useState(() => {
-  //   return window.localStorage.getItem('token');
-  // });
+  const [isAuth, setIsAuth] = useState(() => {
+    return JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
+      .currentUser?.accessToken;
+  });
+
+  const dispatch = useDispatch();
 
   const value: AuthContextType = {
-    // isAuth,
-    // setIsAuth,
+    isAuth,
+    setIsAuth,
     activateAuth: (token: string) => {
-      // setIsAuth(token);
       window.localStorage.setItem('token', token);
     },
     removeAuth: () => {
-      // setIsAuth('');
-      window.localStorage.removeItem('user');
-      return window.localStorage.removeItem('token');
+      setIsAuth('');
+      dispatch(logOut());
     },
   };
 

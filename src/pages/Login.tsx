@@ -1,13 +1,9 @@
-import React from 'react';
 import HomeLayout from '../components/hoc/HomeLayout';
+import { useAuth } from '../utils/hooks/useAuth';
 import './login.css';
 
 const login = () => {
-
-  function handleLoginSubmit(e) {
-    console.log('e', e)
-
-  }
+const { handleLoginSubmit } = useAuth();
 
   return (
     <HomeLayout>
@@ -17,10 +13,9 @@ const login = () => {
             Formulario de inicio de sesión
           </h1>
 
-          <form
-            onSubmit={handleLoginSubmit}
+          <div
             className="loginPageForm animated fadeIn"
-          >
+            >
             <div className="loginPageFormInner">
               {/*  */}
               {/* <div className="formFieldsWrapper">
@@ -40,13 +35,14 @@ const login = () => {
                     placeholder="Contraseña aquí"
                   />
                 </div>
-              </div>
+                </div>
 
               <button>Iniciar sesión</button> */}
 
               <div className="forms-wrap">
                 <form
-                  action="index.html"
+                onSubmit={handleLoginSubmit}
+                  // action="index.html"
                   autoComplete="off"
                   className="sign-in-form"
                 >
@@ -194,7 +190,7 @@ const login = () => {
               </div>
               {/*  */}
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </HomeLayout>
