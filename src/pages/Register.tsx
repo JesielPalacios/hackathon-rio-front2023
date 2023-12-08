@@ -1,10 +1,15 @@
 import React from 'react';
 import { HomeLayout } from '../components';
+import './register.css';
 
 const register = () => {
   return (
     <HomeLayout>
-      <h1>register</h1>
+      <div className="loginPageContainer animated fadeIn fast">
+        <div className="loginPageWrapper">
+          <h1>Formulario de registro</h1>
+        </div>
+      </div>
     </HomeLayout>
   );
 };

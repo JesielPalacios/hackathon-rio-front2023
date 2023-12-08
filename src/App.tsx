@@ -12,8 +12,8 @@ import { useColorTheme } from './utils/hooks/useColorTheme';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const { isAuth } = useAuth();
   const { state } = useColorTheme();
+  const { isAuth } = useAuth();
 
   return (
     <Suspense fallback={<Loading />}>
@@ -31,7 +31,7 @@ function App() {
             index
             element={!isAuth ? <Login /> : <Navigate replace to="/" />}
           />
-          <Route path=":token">
+          <Route path=":isAuth">
             <Route
               index
               element={!isAuth ? <Login /> : <Navigate replace to="/" />}
@@ -44,7 +44,7 @@ function App() {
             index
             element={!isAuth ? <Register /> : <Navigate replace to="/" />}
           />
-          <Route path=":token">
+          <Route path=":isAuth">
             <Route
               index
               element={!isAuth ? <Register /> : <Navigate replace to="/" />}
@@ -55,14 +55,14 @@ function App() {
         <Route
           path="peliculas"
           element={
-            !isAuth ? <Navigate replace to="/iniciar-sesion" /> : <Movies />
+            isAuth ? <Movies /> : <Navigate replace to="/iniciar-sesion" />
           }
         />
 
         <Route
           path="series"
           element={
-            !isAuth ? <Navigate replace to="/iniciar-sesion" /> : <Series />
+            isAuth ? <Series /> : <Navigate replace to="/iniciar-sesion" />
           }
         />
 

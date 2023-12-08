@@ -3,49 +3,20 @@ import { useAuth } from '../utils/hooks/useAuth';
 import './login.css';
 
 const login = () => {
-const { handleLoginSubmit } = useAuth();
+  const { handleLoginSubmit } = useAuth();
 
   return (
     <HomeLayout>
       <div className="loginPageContainer animated fadeIn fast">
         <div className="loginPageWrapper">
-          <h1 className="animated fadeIn fast">
-            Formulario de inicio de sesión
-          </h1>
+          <h1>Formulario de inicio de sesión</h1>
 
-          <div
-            className="loginPageForm animated fadeIn"
-            >
+          <div className="loginPageForm animated fadeIn">
             <div className="loginPageFormInner">
               {/*  */}
-              {/* <div className="formFieldsWrapper">
-                <div className="formField">
-                  <label htmlFor="email">Correo electrónico</label>
-                  <input
-                    type="text"
-                    name="email"
-                    placeholder="Correo electrónico aquí"
-                  />
-                </div>
-                <div className="formField">
-                  <label htmlFor="password">Contraseña</label>
-                  <input
-                    type="text"
-                    name="password"
-                    placeholder="Contraseña aquí"
-                  />
-                </div>
-                </div>
-
-              <button>Iniciar sesión</button> */}
 
               <div className="forms-wrap">
-                <form
-                onSubmit={handleLoginSubmit}
-                  // action="index.html"
-                  autoComplete="off"
-                  className="sign-in-form"
-                >
+                <form onSubmit={handleLoginSubmit} className="sign-in-form">
                   <div className="logo">
                     <img src="./img/logo.png" alt="easyclass" />
                     <h4>REYPELISTV</h4>
@@ -62,26 +33,20 @@ const { handleLoginSubmit } = useAuth();
                   <div className="actual-form">
                     <div className="input-wrap">
                       <input
-                        type="email"
-                        // minlength="4"
+                        // type="email"
                         className="input-field"
-                        autoComplete="off"
-                        required
+                        // required
                         name="email"
-                        // placeholder="Correo electrónico aquí"
                       />
                       <label htmlFor="email">Correo electrónico</label>
                     </div>
 
                     <div className="input-wrap">
                       <input
-                        type="password"
-                        // minlength="4"
+                        // type="password"
                         className="input-field"
-                        autoComplete="off"
-                        required
+                        // required
                         name="password"
-                        // placeholder="Contraseña aquí"
                       />
                       <label htmlFor="password">Contraseña</label>
                     </div>
@@ -99,11 +64,7 @@ const { handleLoginSubmit } = useAuth();
                   </div>
                 </form>
 
-                <form
-                  action="index.html"
-                  autocomplete="off"
-                  className="sign-up-form"
-                >
+                <form action="index.html" className="sign-up-form">
                   <div className="logo">
                     <img src="./img/logo.png" alt="easyclass" />
                     <h4>easyclass</h4>
@@ -119,34 +80,17 @@ const { handleLoginSubmit } = useAuth();
 
                   <div className="actual-form">
                     <div className="input-wrap">
-                      <input
-                        type="text"
-                        minlength="4"
-                        className="input-field"
-                        autocomplete="off"
-                        required
-                      />
+                      <input type="text" className="input-field" required />
                       <label>Name</label>
                     </div>
 
                     <div className="input-wrap">
-                      <input
-                        type="email"
-                        className="input-field"
-                        autocomplete="off"
-                        required
-                      />
+                      <input type="email" className="input-field" required />
                       <label>Email</label>
                     </div>
 
                     <div className="input-wrap">
-                      <input
-                        type="password"
-                        minlength="4"
-                        className="input-field"
-                        autocomplete="off"
-                        required
-                      />
+                      <input type="password" className="input-field" required />
                       <label>Password</label>
                     </div>
 

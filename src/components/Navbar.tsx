@@ -5,7 +5,7 @@ import { useAuth } from '../utils/hooks/useAuth';
 import { logOut } from '../utils/redux/userSlice';
 
 const Navbar = () => {
-  const { loggedUser, logOut, isAuth } = useAuth();
+  const { isAuth, logOut } = useAuth();
 
   return (
     <header className="homeNavbar">

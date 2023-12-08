@@ -1,23 +1,35 @@
-import React, { useContext, useState, useCallback } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useCallback, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../context/AuthContext';
 // import { loginService } from '../services/users.service';
+import { LoginAuthProps } from '../../types/types';
 import {
   capitalizeFirstLetter,
   emailPatternValidation,
   getControl,
 } from '../config/helpers';
+import {
+  logOut,
+  loginFailure,
+  loginStart,
+  loginSuccess,
+} from '../redux/userSlice';
 import { loginService } from '../services/users.service';
-import { loginFailure, loginSuccess } from '../redux/userSlice';
-import { LoginAuthProps } from '../../types/types';
 
 export const useAuth = () => {
-  const { isAuth, removeAuth } = useContext(AuthContext);
-  console.log('isAuth', isAuth);
+  // const { removeAuth } = useContext(AuthContext);
+
   const dispatch = useDispatch();
-  const { isFetching, error } = useSelector((state) => state.user);
+
+  let { isFetching, error, currentUser } = useSelector((state) => state.user);
+
+  const isAuth = currentUser
+    ? currentUser.accessToken
+      ? currentUser.accessToken
+      : null
+    : null;
 
   const navigate = useNavigate();
 
@@ -34,47 +46,51 @@ export const useAuth = () => {
     }
   };
 
-  const loggedUser = {
-    ...JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
-      .currentUser,
-  };
-
   function CheckAuth(props: any) {
-    if (loggedUser.accessToken) {
+    if (isAuth) {
       return { ...props };
     } else {
       return <Navigate replace to="/login" />;
     }
   }
 
-  const login = useCallback(({ email, password }: LoginAuthProps) => {
-    loginService({ email, password }).then(async (response: any) => {
-      const data = await response.json();
+  const login = useCallback(
+    ({ email, password }: LoginAuthProps) => {
+      dispatch(loginStart());
 
-      if (response.status === 200) {
-        dispatch(loginSuccess(data));
+      loginService({ email, password }).then(async (response: any) => {
+        const data = await response.json();
 
-        setState({ loading: false, error: false });
+        if (response.status === 200) {
+          dispatch(loginSuccess(data));
 
-        console.log('loggedUser.gender', loggedUser.gender);
-        toast.success(
-          loggedUser.gender === 'Masculino'
-            ? 'Bienvenido ' +
-                capitalizeFirstLetter(
-                  loggedUser.firstName + ' ' + loggedUser.firstSurname
-                )
-            : 'Bienvenida ' +
-                capitalizeFirstLetter(
-                  loggedUser.firstName + ' ' + loggedUser.firstSurname
-                )
-        );
-      } else {
-        dispatch(loginFailure());
+          setState({ loading: false, error: false });
 
-        toast.error(data.message);
-      }
-    });
-  }, []);
+          currentUser &&
+            toast.success(
+              currentUser.gender === 'Masculino'
+                ? 'Bienvenido ' +
+                    capitalizeFirstLetter(
+                      currentUser.firstName + ' ' + currentUser.firstSurname
+                    )
+                : 'Bienvenida ' +
+                    capitalizeFirstLetter(
+                      currentUser.firstName + ' ' + currentUser.firstSurname
+                    )
+            );
+        } else {
+          dispatch(loginFailure());
+
+          data.message && toast.error(data.message);
+          !data.message &&
+            toast.error(
+              'Ocurrió un error, inténtelo más tarde o comuníquese con nuestro equipo de soporte técnico.'
+            );
+        }
+      });
+    },
+    [loginStart, loginSuccess, loginFailure]
+  );
 
   function handleLoginSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -82,6 +98,9 @@ export const useAuth = () => {
     const { elements } = e.currentTarget;
     const email = getControl(elements.namedItem('email'))!;
     const password = getControl(elements.namedItem('password'))!;
+
+    email.value = 'jesielvirtualsa@gmail.com';
+    password.value = '1234567890';
 
     if (email.value != '' && password.value != '') {
       if (emailPatternValidation(email.value)) {
@@ -95,14 +114,14 @@ export const useAuth = () => {
   }
 
   return {
-    logOut: removeAuth,
+    logOut: () => dispatch(logOut()),
     loading: isFetching,
     error: error,
-    loggedUser,
-    isAuth,
+    loggedUser: currentUser,
     navigateTo,
     CheckAuth,
     handleLoginSubmit,
     dispatch,
+    isAuth,
   };
 };
