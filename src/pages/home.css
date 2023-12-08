@@ -1,0 +1,12 @@
+.homePageContainer {
+height: 100%;
+}
+
+.homePageContainerInner {
+  
+}
+
+.homePageContainerInner h1{
+  text-align: center;
+  margin: 20px;
+}

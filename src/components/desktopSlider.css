@@ -1,0 +1,43 @@
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.slide {
+  flex: 0 0 100%; /* Cada slide ocupa el 100% del contenedor */
+  box-sizing: border-box; /* Asegura que no haya desbordamiento por el borde y padding */
+}
+
+button {
+  margin-top: 10px;
+}
+
+body {
+  margin: 0;
+}
+
+.slider-container {
+  width: 100vw; /* 100% del ancho de la pantalla */
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.slide {
+  flex: 0 0 100vw; /* Ancho igual al ancho de la pantalla */
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 10px;
+}
