@@ -39,16 +39,22 @@ const Slider: React.FC<SliderProps> = ({ slides }) => {
   };
 
   const transformStyle = {
-    transform: `translateX(${-counter * 33.33}%)`, // Ajusta según el valor de flex
+    transform: `translateX(${-counter * 15.33}%)`, // Ajusta según el valor de flex
   };
 
   return (
     <div className="slider-container">
+        <button onClick={prevSlide} className="slider-button">
+          &lt;
+        </button>
       <div className="slider" style={transformStyle}>
         {slides.map((slide, index) => (
           <Slide key={index} {...slide} />
         ))}
       </div>
+        <button onClick={nextSlide} className="slider-button">
+          &gt;
+        </button>
       <button onClick={prevSlide}>Anterior</button>
       <button onClick={nextSlide}>Siguiente</button>
     </div>

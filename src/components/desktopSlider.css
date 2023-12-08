@@ -47,21 +47,41 @@ body {
 }
 
 .slider-container {
-  width: 100vw; /* 100% del ancho de la pantalla */
+  /* width: 100vw;  */
+  /* 100% del ancho de la pantalla */
   overflow: hidden;
+  position: relative;
 }
 
 .slider {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  width: 100%; /* Ajusta según sea necesario */
+  /* width: 100%; */
+   /* Ajusta según sea necesario */
 }
 
 .slide {
-  flex: 0 0 33.33%; /* Cada slide ocupa 1/3 del ancho del contenedor */
+  flex: 0 0 15.33%; /* Cada slide ocupa 1/3 del ancho del contenedor */
   box-sizing: border-box;
+  margin: 5px;
 }
 
 button {
   margin-top: 10px;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.slider-button:hover {
+  background: #2980b9;
 }
