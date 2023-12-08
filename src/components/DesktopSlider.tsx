@@ -25,7 +25,7 @@ interface SliderProps {
   slides: SlideProps[];
 }
 
-const DesktopSlider: React.FC<SliderProps> = ({ slides }) => {
+const Slider: React.FC<SliderProps> = ({ slides }) => {
   const [counter, setCounter] = useState(0);
 
   const nextSlide = () => {
@@ -39,7 +39,7 @@ const DesktopSlider: React.FC<SliderProps> = ({ slides }) => {
   };
 
   const transformStyle = {
-    transform: `translateX(${-counter * 100}%)`,
+    transform: `translateX(${-counter * 33.33}%)`, // Ajusta según el valor de flex
   };
 
   return (
@@ -55,4 +55,4 @@ const DesktopSlider: React.FC<SliderProps> = ({ slides }) => {
   );
 };
 
-export default DesktopSlider;
+export default Slider;
