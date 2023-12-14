@@ -1,0 +1,145 @@
+.registerPageContainer {
+  /* height: 100%; */
+}
+
+.registerPageWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerPageWrapper h1 {
+  margin: 20px;
+  text-align: center;
+}
+
+.registerPageForm {
+  border: 2px solid #000;
+  padding: 20px;
+  border-radius: 7px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 5px 15px;
+
+  /* position: relative;
+  width: 100%;
+  max-width: 1020px;
+  height: 640px;
+  background-color: #fff;
+  border-radius: 3.3rem;
+  box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
+  margin-bottom: 40px; */
+  /* width: 90%; */
+}
+
+.registerPageFormInner {
+  /* position: absolute;
+  width: calc(100% - 4.1rem);
+  height: calc(100% - 4.1rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.registerPageFormInner button {
+  margin: 10px;
+}
+
+.formFieldsWrapper {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  /* max-width: 90%; */
+  flex-wrap: wrap;
+}
+
+.registerPageContainer .formField {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 10px;
+  flex-direction: column-reverse;
+  /* border: 2px solid #ddd; */
+  padding: 5px;
+}
+
+.formField label {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  /* color: #bbb; */
+  opacity: 0.5;
+  transition: all 300ms ease;
+}
+
+.formField label:hover {
+  color: #000;
+  opacity: 1;
+}
+
+.formField:focus label,
+.formField:active label,
+.formField:hover label ,
+/* Estilo para el label cuando el input está enfocado */
+.formField input:focus + label,
+.formField label:focus-within {
+  opacity: 1;
+  color: #000; /* Cambia el color del label cuando el input está enfocado */
+}
+
+.formField input {
+  border: 2px solid #bbb;
+  border-radius: 7px;
+  padding: 10px 15px;
+  font-size: 20px;
+  transition: all 300ms ease;
+}
+
+.formField input:focus,
+.formField input:active,
+.formField input:hover {
+  border: 2px solid #000;
+}
+
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+.form .radio_container {
+  display: flex;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid gray;
+  padding: 5px;
+  gap: 30px;
+  flex-wrap: wrap;
+  line-height: 30px;
+}
+.form .radio_container .radio {
+  display: flex;
+  gap: 5px;
+}
+.form .radio_container .radio input[type='radio'] {
+  width: 20px;
+}
+.form .radio label {
+  font-weight: 500;
+  font-size: 20px;
+  color: gray;
+}
+.form .radio label:hover,
+.form .radio .checked {
+  color: #000;
+}

@@ -10,7 +10,7 @@
 }
 
 .slide {
-  flex: 0 0 100%; /* Cada slide ocupa el 100% del contenedor */
+  flex: 0 0 90%; /* Cada slide ocupa el 100% del contenedor */
   box-sizing: border-box; /* Asegura que no haya desbordamiento por el borde y padding */
 }
 
@@ -30,11 +30,11 @@ body {
 .slider {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  width: 100%;
+  width: 90%;
 }
 
 .slide {
-  flex: 0 0 100vw; /* Ancho igual al ancho de la pantalla */
+  flex: 0 0 80vw; /* Ancho igual al ancho de la pantalla */
   box-sizing: border-box;
 }
 
@@ -51,13 +51,17 @@ body {
   /* 100% del ancho de la pantalla */
   overflow: hidden;
   position: relative;
+
+  display: flex;
+  flex-direction: column;
+
 }
 
 .slider {
   display: flex;
   transition: transform 0.5s ease-in-out;
   /* width: 100%; */
-   /* Ajusta según sea necesario */
+  /* Ajusta según sea necesario */
 }
 
 .slide {
@@ -84,4 +88,23 @@ button {
 
 .slider-button:hover {
   background: #2980b9;
+}
+
+.slider-button-right {
+  right: 2%;
+  z-index: 2;
+  top: 40%;
+}
+
+.slider-button-left {
+  left: 10px;
+  z-index: 2;
+  top: 40%;
+}
+
+.slider-buttons-wrapper {
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+
 }

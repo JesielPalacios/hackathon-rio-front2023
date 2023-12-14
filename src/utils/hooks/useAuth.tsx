@@ -113,6 +113,84 @@ export const useAuth = () => {
     }
   }
 
+  const registerFormInputs = [
+    {
+      name: 'firstName',
+      label: 'Primer nombre',
+      inputProps: {
+        type: 'text',
+        placeholder: 'Primer nombre aquí.',
+        required: true,
+      },
+    },
+    {
+      name: 'secondName',
+      label: 'Segundo nombre',
+      inputProps: {
+        type: 'text',
+        placeholder: 'Segundo nombre aquí.',
+      },
+    },
+    {
+      name: 'firstSurname',
+      label: 'Primer apellido',
+      inputProps: {
+        type: 'text',
+        placeholder: 'Primer apellido aquí.',
+        required: true,
+      },
+    },
+    {
+      name: 'secondSurname',
+      label: 'Segundo apellido',
+      inputProps: {
+        type: 'text',
+        placeholder: 'Segundo apellido aquí.',
+      },
+    },
+    {
+      name: 'email',
+      label: 'Correo electrónico',
+      required: 'required',
+      inputProps: {
+        type: 'email',
+        placeholder: 'Correo electrónico aquí.',
+        required: true,
+      },
+    },
+    {
+      name: 'password',
+      label: 'Contraseña',
+      required: 'required',
+      inputProps: {
+        type: 'password',
+        placeholder: 'Contraseña aquí.',
+        required: true,
+      },
+    },
+  ];
+
+  function handleRegisterSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const { elements } = e.currentTarget;
+    const email = getControl(elements.namedItem('email'))!;
+    const password = getControl(elements.namedItem('password'))!;
+
+    email.value = 'jesielvirtualsa@gmail.com';
+    password.value = '1234567890';
+
+    if (email.value != '' && password.value != '') {
+      if (emailPatternValidation(email.value)) {
+        !isFetching && login({ email: email.value, password: password.value });
+      } else {
+        toast.error('Ingrese un correo válido');
+      }
+    } else {
+      toast.error('Escriba el correo y la contraseña');
+    }
+  }
+
   return {
     logOut: () => dispatch(logOut()),
     loading: isFetching,
@@ -121,6 +199,8 @@ export const useAuth = () => {
     navigateTo,
     CheckAuth,
     handleLoginSubmit,
+    registerFormInputs,
+    handleRegisterSubmit,
     dispatch,
     isAuth,
   };

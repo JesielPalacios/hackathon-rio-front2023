@@ -14,18 +14,16 @@ const Movies = () => {
     // getPopularMovies();
   }, []);
 
-
-
   // const moviesImages = useMemo(() => movies.map((movie) => {
   // }), []);
 
   return (
     <HomeLayout>
-      <div className="moviesPageContainer">
+      <div className="moviesPageContainer animated fadeIn fast">
         <div className="moviesPageContainerInner">
           <h1>Películas</h1>
-
-          {/* <div className="moviesContainer">
+          <div className="animated fadeIn ">
+            {/* <div className="moviesContainer">
             {movies.map((movie) => {
               console.log('movie', movie);
               return (
@@ -36,12 +34,19 @@ const Movies = () => {
                     src={config.imagePath+'/'+movie.poster_path}
                     alt={'image from movie ' + movie.original_title}
                   />
-                </div>
-              );
-            })}
-          </div> */}
-
-          <DesktopSlider slides={movies} /> 
+                  </div>
+                  );
+                })}
+              </div> */}
+            <div>
+              <h2>De tu interés</h2>
+              <DesktopSlider slides={movies} />
+            </div>
+            <div>
+              <h2>Últimos estrenos</h2>
+              <DesktopSlider slides={movies} />
+            </div>{' '}
+          </div>
         </div>
       </div>
     </HomeLayout>
