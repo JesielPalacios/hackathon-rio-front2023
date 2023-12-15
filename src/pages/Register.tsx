@@ -125,7 +125,7 @@ const register = () => {
 
                 {registerFormInputs.map((input) => {
                   return input.select ? (
-                    <div className="formField" key={input.id}>
+                    <div className={'formField ' + input.id} key={input.id}>
                       {input.element}
                       <label htmlFor={input.id} className={'input.required'}>
                         {input.label}
