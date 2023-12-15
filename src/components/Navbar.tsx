@@ -15,9 +15,9 @@ const Navbar = () => {
         </div>
       </Link>
 
-      <form className="searchBox">
+      {/* <form className="searchBox">
         <input type="text" placeholder="Buscar películas " />
-      </form>
+      </form> */}
 
       <nav>
         {isAuth && <NavLink to="/peliculas">Películas</NavLink>}

@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Movie } from '../../types/types';
+import { Movie, MovieGenre } from '../../types/types';
 
 // Define a type for the slice state
 interface MovieState {
   movies: Movie[];
+  moviesGenres: MovieGenre[];
   movie: Movie | null;
   isFetching: boolean;
   error: boolean;
@@ -13,6 +14,7 @@ interface MovieState {
 // const initialState = {
 const initialState: MovieState = {
   movies: [],
+  moviesGenres: [],
   movie: null,
   isFetching: false,
   error: false,
@@ -37,7 +39,7 @@ const movieSlice = createSlice({
       state.error = true;
       state.movies = [];
     },
-
+    //
     getAllMoviesStart: (state) => {
       state.isFetching = true;
     },
@@ -50,7 +52,7 @@ const movieSlice = createSlice({
       state.error = true;
       state.movies = [];
     },
-
+    //
     getOneMovieStart: (state) => {
       state.isFetching = true;
     },
@@ -63,6 +65,19 @@ const movieSlice = createSlice({
       state.error = true;
       state.movie = null;
     },
+    //
+    //
+    loading: (state) => {
+      state.isFetching = true;
+    },
+    getMoviesGenresSucces: (state, action) => {
+      state.isFetching = false;
+      state.moviesGenres = action.payload;
+    },
+    error: (state) => {
+      state.isFetching = false;
+      state.error = true;
+    },
   },
 });
 
@@ -70,9 +85,13 @@ export const {
   getAllMoviesStart,
   getAllMoviesSuccess,
   getAllMoviesFailure,
-
+  //
   getPopularMoviesStart,
   getPopularMoviesSuccess,
   getPopularMoviesFailure,
+  //
+  loading,
+  getMoviesGenresSucces,
+  error,
 } = movieSlice.actions;
 export default movieSlice.reducer;

@@ -1,3 +1,4 @@
+
 export function getControl(item: any) {
   const isControl = item instanceof HTMLInputElement;
 
@@ -22,3 +23,4 @@ export function capitalizeFirstLetter(props: string) {
       .replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()))
   );
 }
+

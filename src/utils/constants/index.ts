@@ -340,3 +340,172 @@ export const movies = [
     vote_count: 3,
   },
 ];
+
+// export const customStyles = (props: any) => {
+//   if (props) {
+//     return (
+//       props.theme === 'dark' && {
+//         control: () => ({
+//           // none of react-select's styles are passed to <Control />
+//           display: 'flex',
+//           width: '100%',
+//           border: 'none',
+//           // borderBottom: '1px solid gray',
+//           // fontSize: '14px',
+//           fontSize: '20px',
+//           padding: '10px 15px',
+//           fontWeight: '500',
+//           cursor: 'pointer',
+//           color: '#bbb',
+//           // backgroundColor: '#000',
+//         }),
+//         singleValue: (provided, state) => {
+//           const opacity = state.isDisabled ? 0.5 : 1;
+//           const transition = 'opacity 300ms';
+//           const cursor = 'pointer';
+//           const color = '#bbb';
+//           // const backgroundColor = '#000';
+
+//           return {
+//             ...provided,
+//             opacity,
+//             transition,
+//             cursor,
+//             color,
+//             // backgroundColor,
+//           };
+//         },
+//       }
+//     );
+//   }
+
+//   return {
+//     control: () => ({
+//       // none of react-select's styles are passed to <Control />
+//       display: 'flex',
+//       width: '100%',
+//       border: 'none',
+//       // borderBottom: '1px solid gray',
+//       // fontSize: '14px',
+//       fontSize: '20px',
+//       paddingTop: '5px',
+//       fontWeight: '500',
+//       cursor: 'pointer',
+//     }),
+//     singleValue: (provided, state) => {
+//       const opacity = state.isDisabled ? 0.5 : 1;
+//       const transition = 'opacity 300ms';
+//       const cursor = 'pointer';
+
+//       return { ...provided, opacity, transition, cursor };
+//     },
+//   };
+// };
+
+export const customStyles = {
+  control: () => ({
+    // none of react-select's styles are passed to <Control />
+    display: 'flex',
+    // width: '100%',
+    minWidth: '300px',
+    overflow: 'hidden',
+    maxWidth: '300px',
+    // border: 'none',
+    fontWeight: '400',
+    cursor: 'pointer',
+
+     border: '2px solid #bbb',
+  borderRadius: '7px',
+  // padding: '5px',
+  fontSize: '20px',
+  transition: 'all 300ms ease',
+  }),
+  singleValue: (provided, state) => {
+    const opacity = state.isDisabled ? 0.5 : 1;
+    const transition = 'opacity 300ms';
+    const cursor = 'pointer';
+
+    return { ...provided, opacity, transition, cursor };
+  },
+};
+export const genres = [
+  {
+    id: 10759,
+    name: 'Action & Adventure',
+    nombre: 'Acción y aventura',
+  },
+  {
+    id: 16,
+    name: 'Animation',
+    nombre: 'Animación',
+  },
+  {
+    id: 35,
+    name: 'Comedy',
+    nombre: 'Comedia',
+  },
+  {
+    id: 80,
+    name: 'Crime',
+    nombre: 'Crimen',
+  },
+  {
+    id: 99,
+    name: 'Documentary',
+    nombre: 'Documental',
+  },
+  {
+    id: 18,
+    name: 'Drama',
+    nombre: 'Drama',
+  },
+  {
+    id: 10751,
+    name: 'Family',
+    nombre: 'Familia',
+  },
+  {
+    id: 10762,
+    name: 'Kids',
+    nombre: 'Niños',
+  },
+  {
+    id: 9648,
+    name: 'Mystery',
+    nombre: 'Misterio',
+  },
+  {
+    id: 10763,
+    name: 'News',
+    nombre: 'Noticias',
+  },
+  {
+    id: 10764,
+    name: 'Reality',
+    nombre: 'Realidad',
+  },
+  {
+    id: 10765,
+    name: 'Sci-Fi & Fantasy',
+    nombre: 'Ciencia ficción y fantasía',
+  },
+  {
+    id: 10766,
+    name: 'Soap',
+    nombre: 'Telenovela',
+  },
+  {
+    id: 10767,
+    name: 'Talk',
+    nombre: 'Conversación',
+  },
+  {
+    id: 10768,
+    name: 'War & Politics',
+    nombre: 'Guerra y Política',
+  },
+  {
+    id: 37,
+    name: 'Occidental',
+  },
+];

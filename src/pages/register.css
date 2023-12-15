@@ -3,10 +3,6 @@
 }
 
 .registerPageWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .registerPageWrapper h1 {
@@ -15,12 +11,6 @@
 }
 
 .registerPageForm {
-  border: 2px solid #000;
-  padding: 20px;
-  border-radius: 7px;
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
   gap: 20px;
   padding: 5px 15px;
 
@@ -47,19 +37,36 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+
+  border: 2px solid #000;
+  padding: 20px;
+  border-radius: 7px;
+  border-radius: 15px;
 }
 
 .registerPageFormInner button {
   margin: 10px;
+  border: 2px solid #bbb;
+  transition: all 300ms ease;
+}
+
+.registerPageFormInner button:hover {
+  margin: 10px;
+  border: 2px solid #ddd;
+  background-color: #1db954;
+  color: #fff;
 }
 
 .formFieldsWrapper {
-  display: flex;
-  /* flex-direction: column; */
-  justify-content: center;
-  align-items: center;
   /* max-width: 90%; */
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+#preferences {
+  grid-column: 2 / 4;
+  grid-row: 1 / 3;
 }
 
 .registerPageContainer .formField {
@@ -67,8 +74,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5px;
-  margin: 10px;
+  /* margin: 10px; */
   flex-direction: column-reverse;
   /* border: 2px solid #ddd; */
   padding: 5px;
@@ -77,7 +83,7 @@
 .formField label {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 500;
   /* color: #bbb; */
   opacity: 0.5;
   transition: all 300ms ease;
@@ -104,6 +110,8 @@
   padding: 10px 15px;
   font-size: 20px;
   transition: all 300ms ease;
+  /* font-weight: bold; */
+  width: 100%;
 }
 
 .formField input:focus,
@@ -117,29 +125,224 @@
 /*  */
 /*  */
 /*  */
-.form .radio_container {
+.registerPageContainer .radio_container {
   display: flex;
   width: 100%;
   border: none;
-  border-bottom: 1px solid gray;
+  border: 1px solid gray;
   padding: 5px;
   gap: 30px;
   flex-wrap: wrap;
   line-height: 30px;
+
+  border: 2px solid #bbb;
+  border-radius: 7px;
+  padding: 5px 15px;
+  font-size: 20px;
+  transition: all 300ms ease;
 }
-.form .radio_container .radio {
+.registerPageContainer .radio_container .radio {
   display: flex;
   gap: 5px;
 }
-.form .radio_container .radio input[type='radio'] {
+.registerPageContainer .radio_container .radio input[type='radio'] {
   width: 20px;
 }
-.form .radio label {
-  font-weight: 500;
+.registerPageContainer .radio label {
+  /* font-weight: 500; */
   font-size: 20px;
   color: gray;
 }
-.form .radio label:hover,
-.form .radio .checked {
+.registerPageContainer .radio label:hover,
+.registerPageContainer .radio .checked {
+  opacity: 1;
   color: #000;
+}
+
+@media screen and (max-width: 1366px) {
+  .formFieldsWrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 962px) {
+  .formFieldsWrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .registerPageFormInner {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 720px) {
+  .formFieldsWrapper {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media screen and (max-width: 360px) {
+  .formFieldsWrapper {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/*  */
+.registerPageContainer .select_image {
+  font-size: 17px;
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  /* justify-content: space-between; */
+  /* justify-content: space-evenly; */
+}
+.registerPageContainer .select_image_cell {
+  border: 1px solid #808191;
+  border-radius: var(--borderRadius);
+  padding: 0.6em 1.2em;
+  padding: 5px;
+  padding: 5px 10px;
+  /* padding: 13x; */
+  width: fit-content;
+  color: #000;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  transition: background-color 0.25s;
+}
+.registerPageContainer .select_image_cell:hover {
+  border: 1px solid #000;
+  color: #fff;
+  background-color: #2a5784;
+}
+.registerPageContainer .select_image_cell label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.registerPageContainer .select_image_cell .icon {
+  font-size: 25px;
+  font-size: 30px;
+  cursor: pointer;
+}
+/*  */
+
+.registerPageContainer .image_container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.registerPageContainer .image_container img {
+  height: 300px;
+  width: 300px;
+  border-radius: 10px;
+}
+@media screen and (min-width: 900px) {
+  /* .form {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      #000 calc(100% - 120px),
+      transparent
+    );
+    mask-image: linear-gradient(90deg, #000 calc(100% - 120px), transparent);
+  } */
+
+  .registerPageContainer img,
+  .registerPageContainer .image_container {
+    float: right;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  /* .form {
+    margin: 10px;
+    padding: 10px;
+  } */
+  .registerPageContainer img,
+  .registerPageContainer .image_container {
+    clear: both;
+    width: 100%;
+  }
+  .registerPageContainer img {
+    height: 340px;
+    width: 340px;
+    margin: 0 auto;
+  }
+  .registerPageContainer .image_container img {
+    height: 280px;
+    width: 280px;
+    margin: 0 auto;
+  }
+  .registerPageContainer .select_image_cell {
+    padding: 5px;
+  }
+  /*  */
+  .buttonsWrapper {
+    position: sticky;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 20px;
+
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+  .editButton {
+    text-align: end;
+    /* color: rgb(116, 81, 248); */
+    /* background-color: rgba(117, 81, 248, 0.094); */
+
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 0px 0px 0px 5px;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .editButtonIcon {
+    font-size: 14px;
+  }
+  .buttonClass {
+    background-color: unset;
+    color: inherit;
+    transition: all 0.25s ease;
+    border-radius: var(--borderRadius);
+    border-radius: 0px 0px 0px 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--primary);
+  }
+  .buttonClass:hover {
+    background-color: var(--primary);
+    color: #fff;
+  }
+  /*  */
+  .form .field label,
+  .form .field input {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .registerPageContainer .image_container img {
+    height: 180px;
+    width: 180px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .registerPageContainer .item .large {
+    font-size: xx-small;
+  }
+}
+@media screen and (max-width: 300px) {
+  .registerPageContainer .image_container img {
+    height: 150px;
+    width: 150px;
+  }
 }

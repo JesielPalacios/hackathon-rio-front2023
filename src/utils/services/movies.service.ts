@@ -38,10 +38,22 @@ export async function getMoviePosterService() {
     console.log('server is down!!');
   });
 }
+
 export async function getOneMovieService(IMDbID: string) {
   return await fetch(
     'http://www.omdbapi.com?apikey=' + config.ombdapiApiKey + '&i=' + IMDbID
   ).catch((error) => {
+    console.error('Error:', error);
+    console.log('server is down!!');
+  });
+}
+
+export async function getMoviesGenresService() {
+  return await fetch('https://api.themoviedb.org/3/genre/tv/list?language=en', {
+    headers: {
+      Authorization: 'Bearer ' + config.ombdapiApiToken,
+    },
+  }).catch((error) => {
     console.error('Error:', error);
     console.log('server is down!!');
   });

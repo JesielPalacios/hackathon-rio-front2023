@@ -1,29 +1,37 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { AuthContext } from '../context/AuthContext';
 // import { loginService } from '../services/users.service';
+import Select from 'react-select';
 import { LoginAuthProps } from '../../types/types';
 import {
   capitalizeFirstLetter,
   emailPatternValidation,
   getControl,
 } from '../config/helpers';
+import { customStyles } from '../constants';
 import {
   logOut,
   loginFailure,
   loginStart,
   loginSuccess,
+  registerUserData,
 } from '../redux/userSlice';
 import { loginService } from '../services/users.service';
+import { useMovie } from './useMovie';
+import { useTranslation } from 'react-i18next';
 
 export const useAuth = () => {
   // const { removeAuth } = useContext(AuthContext);
 
   const dispatch = useDispatch();
 
-  let { isFetching, error, currentUser } = useSelector((state) => state.user);
+  const { isFetching, error, currentUser, newUserRegister } = useSelector(
+    (state) => state.user
+  );
+
+  const { moviesGenres, loadingMovies, errorMovies } = useMovie();
 
   const isAuth = currentUser
     ? currentUser.accessToken
@@ -114,15 +122,15 @@ export const useAuth = () => {
   }
 
   const registerFormInputs = [
-    {
-      name: 'firstName',
-      label: 'Primer nombre',
-      inputProps: {
-        type: 'text',
-        placeholder: 'Primer nombre aquí.',
-        required: true,
-      },
-    },
+    // {
+    //   name: 'firstName',
+    //   label: 'Primer nombre',
+    //   inputProps: {
+    //     type: 'text',
+    //     placeholder: 'Primer nombre aquí.',
+    //     required: true,
+    //   },
+    // },
     {
       name: 'secondName',
       label: 'Segundo nombre',
@@ -168,27 +176,103 @@ export const useAuth = () => {
         required: true,
       },
     },
+
+    {
+      id: 'preferences',
+      label: 'Preferencias',
+      required: true,
+      select: true,
+      element: (
+        <Select
+          inputId="preferences"
+          required
+          placeholder={'Seleccione sus preferencias aquí.'}
+          formatCreateLabel={(props) => {
+            return 'Seleccionar: ' + props;
+          }}
+          isClearable={true}
+          isDisabled={loadingMovies}
+          isMulti
+          // hideSelectedOptions={true}
+          styles={customStyles}
+          onChange={(data: { id: number }) => {
+            data
+              ? dispatch(
+                  registerUserData({
+                    preferences: data,
+                  })
+                )
+              : dispatch(
+                  registerUserData({
+                    preferences: undefined,
+                  })
+                );
+          }}
+          options={moviesGenres.map(({ name, id }) => ({
+            label: name,
+            value: name,
+            id,
+          }))}
+          // value={
+          //   loadingMovies
+          //     ? {
+          //         label: 'Cargando...',
+          //         value: 'Cargando...',
+          //       }
+          //     : newUserRegister.preferences && {
+          //         label: newUserRegister.preferences
+          //           ? newUserRegister.preferences
+          //           : '',
+          //         value: newUserRegister.preferences
+          //           ? newUserRegister.preferences
+          //           : '',
+          //       }
+          // }
+          noOptionsMessage={() => 'No se encontró el género.'}
+          // {...disableEditing(loading)}
+        />
+      ),
+    },
   ];
 
   function handleRegisterSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const { elements } = e.currentTarget;
-    const email = getControl(elements.namedItem('email'))!;
-    const password = getControl(elements.namedItem('password'))!;
+    const firstName = getControl(elements.namedItem('firstName'))!.value;
+    const secondName = getControl(elements.namedItem('secondName'))!.value;
+    const firstSurname = getControl(elements.namedItem('firstSurname'))!.value;
+    const secondSurname = getControl(
+      elements.namedItem('secondSurname')
+    )!.value;
+    const email = getControl(elements.namedItem('email'))!.value;
+    const password = getControl(elements.namedItem('password'))!.value;
 
-    email.value = 'jesielvirtualsa@gmail.com';
-    password.value = '1234567890';
+    dispatch(
+      registerUserData({
+        firstName,
+        secondName,
+        firstSurname,
+        secondSurname,
+        email,
+        password,
+      })
+    );
 
-    if (email.value != '' && password.value != '') {
-      if (emailPatternValidation(email.value)) {
-        !isFetching && login({ email: email.value, password: password.value });
-      } else {
-        toast.error('Ingrese un correo válido');
-      }
-    } else {
-      toast.error('Escriba el correo y la contraseña');
-    }
+    console.log('newUserRegister', newUserRegister);
+
+    // email.value = 'jesielvirtualsa@gmail.com';
+    // password.value = '1234567890';
+
+    // if (email.value != '' && password.value != '') {
+    //   if (emailPatternValidation(email.value)) {
+    //     !isFetching && login({ email: email.value, password: password.value });
+    //   } else {
+    //     toast.error('Ingrese un correo válido');
+    //   }
+    // } else {
+    //   toast.error('Escriba el correo y la contraseña');
+    // }
   }
 
   return {
@@ -203,5 +287,6 @@ export const useAuth = () => {
     handleRegisterSubmit,
     dispatch,
     isAuth,
+    newUserRegister,
   };
 };
