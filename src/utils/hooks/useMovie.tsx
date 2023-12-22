@@ -1,19 +1,17 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import {
+  errorMoviesRedux,
+  getMoviesGenresSucces,
+  getPopularMoviesFailure,
+  getPopularMoviesStart,
+  getPopularMoviesSuccess,
+  loadingMoviesRedux,
+} from '../redux/movieRedux';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import {
   getMoviesGenresService,
   getPopularMoviesService,
 } from '../services/movies.service';
-import {
-  error,
-  getPopularMoviesFailure,
-  getPopularMoviesStart,
-  getPopularMoviesSuccess,
-  loading,
-  getMoviesGenresSucces,
-} from '../redux/movieRedux';
-import { toast } from 'react-toastify';
-import { RootState, useAppDispatch, useAppSelector } from '../redux/store';
 
 export const useMovie = () => {
   // const dispatch = useDispatch();
@@ -51,8 +49,7 @@ export const useMovie = () => {
 
   function getMoviesGenres() {
     if (moviesGenres.length === 0) {
-      console.log('moviesGenres', moviesGenres)
-      dispatch(loading());
+      dispatch(loadingMoviesRedux());
 
       getMoviesGenresService().then(async (response: any) => {
         const data = await response.json();
@@ -60,7 +57,7 @@ export const useMovie = () => {
         if (response.status === 200) {
           dispatch(getMoviesGenresSucces(data.genres));
         } else {
-          dispatch(error());
+          dispatch(errorMoviesRedux());
 
           data.message && toast.error(data.message);
           !data.message &&

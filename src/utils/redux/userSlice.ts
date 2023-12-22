@@ -6,6 +6,19 @@ const userSlice = createSlice({
     currentUser: null,
     newUserRegister: {
       gender: 'Masculino',
+      // preferences: [],
+      email: 'jesielto14@gmail.com',
+      firstName: 'John',
+      firstSurname: 'Doe',
+      // gender: 'Masculino',
+      password: '1234567890',
+      preferences: [
+        {
+          label: 'Action & Adventure',
+          value: 'Action & Adventure',
+          id: 10759,
+        },
+      ],
     },
     isFetching: false,
     error: false,
@@ -29,17 +42,12 @@ const userSlice = createSlice({
       state.currentUser = null;
     },
     //
-    registerStart: (state) => {
-      state.isFetching = true;
-    },
-    registerSuccess: (state, action) => {
+
+    registerUserSuccess: (state, action) => {
       state.isFetching = false;
       state.newUserRegister = action.payload;
     },
-    registerFailure: (state) => {
-      state.isFetching = false;
-      state.error = true;
-    },
+
     registerUserGender: (state, action) => {
       state.newUserRegister = {
         ...state.newUserRegister,
@@ -52,7 +60,18 @@ const userSlice = createSlice({
         ...action.payload,
       };
     },
-  
+    //
+    loadingUsersRedux: (state) => {
+      state.isFetching = true;
+    },
+    errorUsersRedux: (state) => {
+      state.isFetching = false;
+      state.error = true;
+    },
+    resetLoadingandErrorUsersRedux: (state) => {
+      state.isFetching = false;
+      state.error = false;
+    },
   },
 });
 
@@ -61,10 +80,11 @@ export const {
   loginSuccess,
   loginFailure,
   logOut,
-  registerStart,
-  registerSuccess,
-  registerFailure,
+  loadingUsersRedux,
+  errorUsersRedux,
+  registerUserSuccess,
   registerUserGender,
   registerUserData,
+  resetLoadingandErrorUsersRedux,
 } = userSlice.actions;
 export default userSlice.reducer;

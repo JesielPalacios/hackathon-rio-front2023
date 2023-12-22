@@ -66,15 +66,14 @@ const movieSlice = createSlice({
       state.movie = null;
     },
     //
-    //
-    loading: (state) => {
+    loadingMoviesRedux: (state) => {
       state.isFetching = true;
     },
     getMoviesGenresSucces: (state, action) => {
       state.isFetching = false;
       state.moviesGenres = action.payload;
     },
-    error: (state) => {
+    errorMoviesRedux: (state) => {
       state.isFetching = false;
       state.error = true;
     },
@@ -90,8 +89,8 @@ export const {
   getPopularMoviesSuccess,
   getPopularMoviesFailure,
   //
-  loading,
+  loadingMoviesRedux,
   getMoviesGenresSucces,
-  error,
+  errorMoviesRedux,
 } = movieSlice.actions;
 export default movieSlice.reducer;

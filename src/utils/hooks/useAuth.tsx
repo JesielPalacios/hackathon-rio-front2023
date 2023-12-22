@@ -12,15 +12,18 @@ import {
 } from '../config/helpers';
 import { customStyles } from '../constants';
 import {
+  errorUsersRedux,
   logOut,
   loginFailure,
   loginStart,
   loginSuccess,
   registerUserData,
+  resetLoadingandErrorUsersRedux,
 } from '../redux/userSlice';
-import { loginService } from '../services/users.service';
+import { loginService, registerService } from '../services/users.service';
 import { useMovie } from './useMovie';
 import { useTranslation } from 'react-i18next';
+import { errorMoviesRedux, loadingMoviesRedux } from '../redux/movieRedux';
 
 export const useAuth = () => {
   // const { removeAuth } = useContext(AuthContext);
@@ -133,6 +136,7 @@ export const useAuth = () => {
     // },
     {
       name: 'secondName',
+      value: newUserRegister[`secondName`],
       label: 'Segundo nombre',
       inputProps: {
         type: 'text',
@@ -141,15 +145,17 @@ export const useAuth = () => {
     },
     {
       name: 'firstSurname',
+      value: newUserRegister[`firstSurname`],
       label: 'Primer apellido',
       inputProps: {
         type: 'text',
         placeholder: 'Primer apellido aquí.',
-        required: true,
+        // required: true,
       },
     },
     {
       name: 'secondSurname',
+      value: newUserRegister[`secondSurname`],
       label: 'Segundo apellido',
       inputProps: {
         type: 'text',
@@ -158,44 +164,48 @@ export const useAuth = () => {
     },
     {
       name: 'email',
+      value: newUserRegister[`email`],
       label: 'Correo electrónico',
       required: 'required',
       inputProps: {
         type: 'email',
         placeholder: 'Correo electrónico aquí.',
-        required: true,
+        // required: true,
       },
     },
     {
       name: 'password',
+      value: newUserRegister[`password`],
       label: 'Contraseña',
       required: 'required',
       inputProps: {
         type: 'password',
         placeholder: 'Contraseña aquí.',
-        required: true,
+        // required: true,
       },
     },
 
     {
       id: 'preferences',
+      value: newUserRegister[`preferences`],
       label: 'Preferencias',
-      required: true,
+      // required: true,
       select: true,
       element: (
         <Select
           inputId="preferences"
-          required
-          placeholder={'Seleccione sus preferencias aquí.'}
-          formatCreateLabel={(props) => {
-            return 'Seleccionar: ' + props;
-          }}
+          // required
+          // placeholder={'Seleccione sus preferencias aquí.'}
+          placeholder={'Preferencias aquí.'}
+          // formatCreateLabel={(props:any) => {
+          //   return 'Seleccionar: ' + props;
+          // }}
           isClearable={true}
           isDisabled={loadingMovies}
           isMulti
           // hideSelectedOptions={true}
           styles={customStyles}
-          onChange={(data: { id: number }) => {
+          onChange={(data: any) => {
             data
               ? dispatch(
                   registerUserData({
@@ -213,27 +223,46 @@ export const useAuth = () => {
             value: name,
             id,
           }))}
-          // value={
-          //   loadingMovies
-          //     ? {
-          //         label: 'Cargando...',
-          //         value: 'Cargando...',
-          //       }
-          //     : newUserRegister.preferences && {
-          //         label: newUserRegister.preferences
-          //           ? newUserRegister.preferences
-          //           : '',
-          //         value: newUserRegister.preferences
-          //           ? newUserRegister.preferences
-          //           : '',
-          //       }
-          // }
+          value={
+            loadingMovies
+              ? //  {
+                //     label: 'Cargando...',
+                //     value: 'Cargando...',
+                //   }
+                ''
+              : // newUserRegister.preferences && {
+                //     label: newUserRegister.preferences
+                //       ? newUserRegister.preferences
+                //       : '',
+                //     value: newUserRegister.preferences
+                //       ? newUserRegister.preferences
+                //       : '',
+                //   }
+                newUserRegister.preferences
+          }
           noOptionsMessage={() => 'No se encontró el género.'}
           // {...disableEditing(loading)}
         />
       ),
     },
   ];
+
+  const handleRegister = useCallback(() => {}, []);
+
+  function registerErrorNotification(msg: string) {
+    toast.error(msg);
+
+    // const i = setTimeout(() => {
+    dispatch(loadingMoviesRedux());
+    dispatch(errorMoviesRedux());
+    // }, 5000);
+
+    // return () => {
+    // clearTimeout(i);
+    // };
+
+    return;
+  }
 
   function handleRegisterSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -259,22 +288,126 @@ export const useAuth = () => {
       })
     );
 
-    console.log('newUserRegister', newUserRegister);
+    // if (newUserRegister.preferences.length === 0) {
+    //   toast.error('Elija una preferencia.');
+
+    //   dispatch(loadingMoviesRedux());
+    //   setTimeout(() => {
+    //     dispatch(errorMoviesRedux());
+    //     return;
+    //   }, 5000);
+
+    //   return;
+    // }
+
+    if (newUserRegister.preferences.length === 0) {
+      registerErrorNotification('Elija una preferencia..');
+      return;
+    }
+
+    if (!email) {
+      registerErrorNotification('El correo electrónico es requerido.');
+      return;
+    }
+
+    if (!password) {
+      registerErrorNotification('La contraseña es requerida.');
+      return;
+    }
+
+    if (!firstName) {
+      registerErrorNotification('El primer nombre es requerido.');
+      return;
+    }
+
+    if (!firstSurname) {
+      registerErrorNotification('El primer apellido es requerido.');
+      return;
+    }
+
+    // if (!gender) {
+    //   registerErrorNotification('El género es requerido.');
+    //   return;
+    // }
 
     // email.value = 'jesielvirtualsa@gmail.com';
     // password.value = '1234567890';
 
     // if (email.value != '' && password.value != '') {
     //   if (emailPatternValidation(email.value)) {
-    //     !isFetching && login({ email: email.value, password: password.value });
+    // !isFetching &&
+    //
+    //
+    //
+    // console.log('newUserRegister', newUserRegister);
+    // handleRegister();
+    //
+    //
+    //
     //   } else {
     //     toast.error('Ingrese un correo válido');
     //   }
     // } else {
     //   toast.error('Escriba el correo y la contraseña');
     // }
+    dispatch(loginStart());
+
+    registerService(newUserRegister).then(async (response: any) => {
+      //
+      try {
+        const data = await response.json();
+
+        if (response.status === 201) {
+          dispatch(resetLoadingandErrorUsersRedux());
+
+          //  try to reset the form isn't gonna work bc default value came from redux to the inputs
+          // e.currentTarget.reset();
+          // document.getElementById('register_client_form').reset();
+
+          dispatch(
+            registerUserData({
+              firstName: undefined,
+              secondName: undefined,
+              firstSurname: undefined,
+              secondSurname: undefined,
+              email: undefined,
+              password: undefined,
+              preferences: [],
+            })
+          );
+
+          toast.success('Usuario registrado exitosamente');
+
+          const i = setTimeout(() => {
+            navigate('/iniciar-sesion');
+          }, 3000);
+
+          return () => {
+            clearTimeout(i);
+          };
+        } else {
+          dispatch(errorUsersRedux());
+          dispatch(resetLoadingandErrorUsersRedux());
+
+          data.message && toast.error(data.message);
+          //  !data.message &&
+          //    toast.error(
+          //      'Ocurrió un error.'
+          //      // 'Ocurrió un error, inténtelo más tarde o comuníquese con nuestro equipo de soporte técnico.'
+          //    );
+        }
+      } catch (error) {
+        console.log('error', error);
+        //  toast.error(
+        //    'Ocurrió un error.'
+        //    // 'Ocurrió un error, inténtelo más tarde o comuníquese con nuestro equipo de soporte técnico.'
+        //  );
+      }
+      //
+    });
   }
 
+  // console.log('isFetching', isFetching);
   return {
     logOut: () => dispatch(logOut()),
     loading: isFetching,

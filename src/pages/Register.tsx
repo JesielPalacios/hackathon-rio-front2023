@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
 import { MdDriveFolderUpload } from 'react-icons/md';
-import { HomeLayout } from '../components';
+import { PublicLayout } from '../components';
 import { useAuth } from '../utils/hooks/useAuth';
 import { useMovie } from '../utils/hooks/useMovie';
 import { registerUserData, registerUserGender } from '../utils/redux/userSlice';
@@ -21,12 +21,26 @@ const register = () => {
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
+  const onUnload = (e: BeforeUnloadEvent) => {
+    // the method that will be used for both add and remove event
+    e.preventDefault();
+    e.returnValue =
+      'Formulario incompleto: Tus datos no se perderán en este navegador cuando vuelvas al registro.';
+  };
   useEffect(() => {
     getMoviesGenres();
 
     if (inputRef.current) {
       inputRef.current.focus();
     }
+
+    // window.onbeforeunload = function (eBeforeUnloadEvent) {
+    //   return 'Please make sure, the video has finished uploading before closing this window.';
+    // };
+
+    window.addEventListener('beforeunload', onUnload);
+
+    return () => window.removeEventListener('beforeunload', onUnload);
   }, []);
 
   const imageFieldForm = (
@@ -39,12 +53,17 @@ const register = () => {
         <input
           type="file"
           id="userPhoto"
+          {...{ disabled: loadingMovies }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             if (!e.target.files) return;
 
+            // delete newUserRegister.deleteImage;
+
             dispatch(
               registerUserData({
+                ...newUserRegister,
                 image: e.target.files[0],
+                // deleteImage: false,
               })
             );
           }}
@@ -56,7 +75,12 @@ const register = () => {
         <div
           className="select_image_cell"
           onClick={() =>
-            dispatch(registerUserData({ image: undefined, deleteImage: true }))
+            dispatch(
+              registerUserData({
+                image: undefined,
+                //  deleteImage: true
+              })
+            )
           }
         >
           <label htmlFor="userPhoto">
@@ -69,44 +93,60 @@ const register = () => {
     </div>
   );
 
+  function renderNewUserImage() {
+    try {
+      return newUserRegister.image
+        ? typeof newUserRegister.image === 'string'
+          ? newUserRegister.image
+          : URL.createObjectURL(newUserRegister.image)
+        : '/img/no-image.jpg';
+    } catch (err) {
+      // console.log('err', err);
+      dispatch(
+        registerUserData({
+          image: undefined,
+          //  deleteImage: true
+        })
+      );
+      return '/img/no-image.jpg';
+    }
+  }
+
   return (
-    <HomeLayout>
+    <PublicLayout>
       <div className="registerPageContainer animated fadeIn fast">
         <div className="registerPageWrapper">
           <h1>Formulario de registro de nuevo usuario</h1>
 
-          <div className="registerPageForm animated fadeIn">
-            <form
-              onSubmit={handleRegisterSubmit}
-              className="registerPageFormInner"
-              autoComplete="off"
-            >
+          <hr />
+
+          <form
+            onSubmit={handleRegisterSubmit}
+            autoComplete="off"
+            className="registerPageForm animated fadeIn"
+            id="register_client_form"
+          >
+            <div className="registerPageFormInner">
               <div className="image_container">
                 <img
-                  src={
-                    // newUserRegister.image
-                    //   ? typeof newUserRegister.image === 'string'
-                    //     ? newUserRegister.image
-                    //     : URL.createObjectURL(newUserRegister.image)
-                    //   : '/img/no-image.jpg'
-                    '/img/no-image.jpg'
-                  }
+                  src={renderNewUserImage()}
                   alt={
                     newUserRegister.image
-                      ? 'Imágen de perfil de usuario.'
-                      : 'No hay imágen de perfil para este usuario.'
+                      ? 'Imágen de perfil para el nuevo usuario.'
+                      : 'No se ha seleccionado ninguna imágen.'
                   }
                   style={{
                     // 'view-transition-name': 'image',
                     viewTransitionName: 'image',
                     // viewTransitionName: `${props.data._id ? props.data._id : ''}`,
                   }}
-                  className='registerUserImage'
+                  className="registerUserImage"
                 />
 
                 {/* {console.log('props.data._id', props.data._id)} */}
                 {imageFieldForm}
               </div>
+
               <div className="formFieldsWrapper">
                 <div className="formField">
                   <input
@@ -116,7 +156,9 @@ const register = () => {
                     id="firstName"
                     autoComplete="off"
                     placeholder="Primer nombre aquí."
-                    required
+                    // required
+                    defaultValue={newUserRegister[`firstName`]}
+                    {...{ disabled: loadingMovies }}
                   />
                   <label htmlFor="firstName" className="required">
                     Primer nombre
@@ -137,6 +179,7 @@ const register = () => {
                         id={input.name}
                         {...input.inputProps}
                         {...{ disabled: loadingMovies }}
+                        defaultValue={input.value}
                         autoComplete="off"
                       />
                       <label htmlFor={input.name} className={'input.required'}>
@@ -197,13 +240,12 @@ const register = () => {
                   <label htmlFor="Femenino">Género</label>
                 </div>
               </div>
-
-              <button disabled={loadingMovies}>Iniciar sesión</button>
-            </form>
-          </div>
+            </div>
+            <button disabled={loadingMovies}>Iniciar sesión</button>
+          </form>
         </div>
       </div>
-    </HomeLayout>
+    </PublicLayout>
   );
 };
 

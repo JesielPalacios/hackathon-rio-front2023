@@ -26,6 +26,34 @@ export async function loginService({
     });
 }
 
+export async function registerService(data: any) {
+  let formData = new FormData();
+
+  for (const [key, value] of Object.entries(data)) {
+    if (value) {
+      if (key === 'preferences') {
+        // formData.append(`${key}`, value);
+        // for (var i = 0; i < value.length; i++) {
+        //   formData.append('preferences', value[i]);
+        // }
+        //
+        formData.append('preferences', JSON.stringify(value));
+      } else {
+        formData.append(`${key}`, value);
+      }
+    }
+  }
+
+  return await fetch(config.API_HOST + '/clients', {
+    method: 'POST',
+    headers: {
+      // 'Content-Type': 'application/json',
+    },
+    body: formData,
+    // body: JSON.stringify({ ...data }),
+  });
+}
+
 // export async function loginService({
 //   email,
 //   password,

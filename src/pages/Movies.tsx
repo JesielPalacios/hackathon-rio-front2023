@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { DesktopSlider, HomeLayout } from '../components';
+import { DesktopSlider, PublicLayout } from '../components';
 import { Movie } from '../types/types';
 import { useMovie } from '../utils/hooks/useMovie';
 import './movies.css';
@@ -18,7 +18,7 @@ const Movies = () => {
   // }), []);
 
   return (
-    <HomeLayout>
+    <PublicLayout>
       <div className="moviesPageContainer animated fadeIn fast">
         <div className="moviesPageContainerInner">
           <h1>Películas</h1>
@@ -49,7 +49,7 @@ const Movies = () => {
           </div>
         </div>
       </div>
-    </HomeLayout>
+    </PublicLayout>
   );
 };
 

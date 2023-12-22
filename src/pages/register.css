@@ -9,12 +9,18 @@
   margin: 20px;
   text-align: center;
 }
+.registerPageWrapper hr {
+  margin: 20px;
+  text-align: center;
+  height: 1px;
+}
 
 .registerPageForm {
   gap: 20px;
   padding: 5px 15px;
 
-  /* position: relative;
+  /* 
+  position: relative;
   width: 100%;
   max-width: 1020px;
   height: 640px;
@@ -22,7 +28,13 @@
   border-radius: 3.3rem;
   box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
   margin-bottom: 40px; */
-  /* width: 90%; */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
 }
 
 .registerPageFormInner {
@@ -32,26 +44,25 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   gap: 10px;
 
-  border: 2px solid #000;
-  padding: 20px;
-  border-radius: 7px;
-  border-radius: 15px;
+  /* width: 100%; */
 }
 
-.registerPageFormInner button {
-  margin: 10px;
+.registerPageForm button {
+  /* margin: 10px; */
   border: 2px solid #bbb;
   transition: all 300ms ease;
+  text-wrap: nowrap;
+  font-size: 20px;
+  margin: 10px auto;
 }
 
-.registerPageFormInner button:hover {
-  margin: 10px;
+.registerPageForm button:hover {
   border: 2px solid #ddd;
   background-color: #1db954;
   color: #fff;
@@ -59,14 +70,13 @@
 
 .formFieldsWrapper {
   /* max-width: 90%; */
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* display: grid; */
+  /* grid-template-columns: repeat(4, 1fr); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
-}
-
-#preferences {
-  grid-column: 2 / 4;
-  grid-row: 1 / 3;
 }
 
 .registerPageContainer .formField {
@@ -111,7 +121,7 @@
   font-size: 20px;
   transition: all 300ms ease;
   /* font-weight: bold; */
-  width: 100%;
+  /* width: 100%; */
 }
 
 .formField input:focus,
@@ -189,32 +199,42 @@
   display: flex;
   width: 100%;
   gap: 10px;
-    display: flex;
+  display: flex;
   /* flex-direction: column; */
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 
   /* justify-content: space-between; */
   /* justify-content: space-evenly; */
 }
 .registerPageContainer .select_image_cell {
-  border: 1px solid #808191;
-  border-radius: var(--borderRadius);
+  border: 2px solid #808191;
+  border-radius: 7px;
   padding: 0.6em 1.2em;
   padding: 5px;
   padding: 5px 10px;
   /* padding: 13x; */
   width: fit-content;
-  color: #000;
+  /* color: #000; */
   cursor: pointer;
   transition: border-color 0.25s;
   transition: background-color 0.25s;
+  border: 2px solid #bbb;
+  border-radius: 7px;
+  padding: 10px 15px;
+  font-size: 20px;
+  transition: all 300ms ease;
+  font-weight: 500;
+  opacity: 0.9;
 }
 .registerPageContainer .select_image_cell:hover {
-  border: 1px solid #000;
+  border: 2px solid #000;
+  border: 2px solid #bbb;
   color: #fff;
   background-color: #2a5784;
+  background-color: #1db954;
+  opacity: 1;
 }
 .registerPageContainer .select_image_cell label {
   display: flex;
@@ -232,12 +252,12 @@
 .registerPageContainer .image_container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   width: 300px;
-  margin-right: 20px;
   margin-bottom: 20px;
   position: relative;
 }
+
 .registerPageContainer .image_container img {
   height: 300px;
   width: 300px;
@@ -249,13 +269,35 @@
       90deg,
       #000 calc(100% - 120px),
       transparent
-    );
+      );
     mask-image: linear-gradient(90deg, #000 calc(100% - 120px), transparent);
   } */
 
-  .registerPageContainer img,
-  .registerPageContainer .image_container {
+  .registerPageContainer {
+    margin: 20px;
+  }
+
+  .registerPageWrapper hr {
+    display: none;
+  }
+
+  .registerPageForm {
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 7px;
+    border-radius: 15px;
+    transition: 300ms ease;
+  }
+
+  .registerPageForm:hover {
+    border: 2px solid #bbb;
+  }
+
+  .image_container {
     float: right;
+    /* margin: 20px; */
+    margin-left: 20px;
+    /* margin-right: 20px; */
   }
 }
 
@@ -268,11 +310,11 @@
   .registerPageContainer .image_container {
     clear: both;
     width: 100%;
-      display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: k0px;
   }
   .registerPageContainer img {
     height: 340px;

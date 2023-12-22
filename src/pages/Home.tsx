@@ -1,4 +1,4 @@
-import { HomeLayout } from '../components';
+import { PublicLayout } from '../components';
 import { useAuth } from '../utils/hooks/useAuth';
 import './home.css';
 
@@ -6,7 +6,7 @@ const home = () => {
   const { loggedUser } = useAuth();
 
   return (
-    <HomeLayout>
+    <PublicLayout>
       <div className="homePageContainer animated fadeIn fast">
         <div className="homePageContainerInner">
           <h1>Página principal</h1>
@@ -20,7 +20,7 @@ const home = () => {
           )}
         </div>
       </div>
-    </HomeLayout>
+    </PublicLayout>
   );
 };
 

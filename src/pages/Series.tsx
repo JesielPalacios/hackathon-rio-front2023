@@ -1,11 +1,11 @@
 import React from 'react';
-import { HomeLayout } from '../components';
+import { PublicLayout } from '../components';
 
 const Series = () => {
   return (
-    <HomeLayout>
+    <PublicLayout>
       <h1>Series</h1>
-    </HomeLayout>
+    </PublicLayout>
   );
 };
 

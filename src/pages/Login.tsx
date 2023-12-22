@@ -1,4 +1,4 @@
-import HomeLayout from '../components/hoc/HomeLayout';
+import PublicLayout from '../components/hoc/PublicLayout';
 import { useAuth } from '../utils/hooks/useAuth';
 import './login.css';
 
@@ -6,7 +6,7 @@ const login = () => {
   const { handleLoginSubmit } = useAuth();
 
   return (
-    <HomeLayout>
+    <PublicLayout>
       <div className="loginPageContainer animated fadeIn fast">
         <div className="loginPageWrapper">
           <h1>Formulario de inicio de sesión</h1>
@@ -137,7 +137,7 @@ const login = () => {
           </div>
         </div>
       </div>
-    </HomeLayout>
+    </PublicLayout>
   );
 };
 
