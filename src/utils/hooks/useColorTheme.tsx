@@ -1,16 +1,16 @@
 'use client';
-import { useContext,  useState } from 'react';
+import { useContext, useState } from 'react';
 import { ColorThemeContext } from '../context/ColorThemeContext';
 
 export const useColorTheme = () => {
   // const { setColorMode, mode, matchMedia } = useContext(ColorThemeContext);
   const { state, dispatch } = useContext(ColorThemeContext);
 
-  const [profileOptionsPopup, setProfileOptionsPopup] = useState(false);
-  const toggleShowProfileOptionsPopup = () =>
-    setProfileOptionsPopup(!profileOptionsPopup);
+  // const [profileOptionsPopup, setProfileOptionsPopup] = useState(false);
+  // // console.log('profileOptionsPopup', profileOptionsPopup)
+  // const toggleShowProfileOptionsPopup = () => setProfileOptionsPopup(!profileOptionsPopup);
 
-  const [settingsModal, setSettingsModal] = useState(false);
+  // const [settingsModal, setSettingsModal] = useState(false);
 
   // useEffect(() => {
   //   // Set navbarListPagination
@@ -28,12 +28,12 @@ export const useColorTheme = () => {
   return {
     state,
     dispatch,
-    //
-    profileOptionsPopup,
-    setProfileOptionsPopup,
-    toggleShowProfileOptionsPopup,
-    //
-    settingsModal,
-    setSettingsModal,
+    // //
+    // profileOptionsPopup,
+    // setProfileOptionsPopup,
+    // toggleShowProfileOptionsPopup,
+    // //
+    // settingsModal,
+    // setSettingsModal,
   };
 };

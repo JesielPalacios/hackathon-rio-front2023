@@ -1,0 +1,72 @@
+.MyProfilePage {
+}
+
+.MyProfilePageContainer {
+}
+
+.MyProfilePageContainer h1 {
+  text-align: center;
+  margin: 20px;
+}
+
+.MyProfilePageWrapper {
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  transition: 300ms ease;
+}
+
+.MyProfilePageWrapper:hover {
+  border: 1px solid #bbb;
+}
+
+.MyProfilePageWrapper img {
+  width: 300px;
+  border-radius: 100%;
+}
+
+.MyProfilePageFormImageContainer {
+  position: relative;
+  width: fit-content;
+  border-radius: 100%;
+}
+
+/* Establecemos las propiedades del div que superpondremos al avatar */
+.MyProfilePageFormImageButtons {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  width: 300px;
+  opacity: 0;
+  transition: 0.9s ease;
+  background-color: #00000087;
+  border-radius: 50%;
+}
+
+/* Cuando pasemos sobre el avatar se genera el efecto */
+.MyProfilePageFormImageContainer:hover .MyProfilePageFormImageButtons {
+  opacity: 1;
+}
+.MyProfilePageFormImageContainer:hover .MyProfilePageFormImageButtons form {
+  margin: 0 auto;
+}
+.MyProfilePageFormImageButtons section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: aqua;
+}
+
+.MyProfilePageFormImageButtons form div:nth-child(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+}

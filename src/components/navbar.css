@@ -51,3 +51,28 @@
   border: 1px solid #000;
   filter: drop-shadow(0 0 0em #1db954aa);
 }
+
+.homeNavbar .profileOptions {
+  height: 50px;
+  overflow: hidden;
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.homeNavbar .profileOptions img {
+  height: 50px;
+  border-radius: 50%;
+}
+
+.homeNavbar .profileOptions .spaceLine {
+  width: 2px;
+  height: 90%;
+  background-color: #808080;
+  border-radius: 7px;
+  margin: 5px;
+}

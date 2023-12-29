@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import { Home, Login, Movies, NotFound, Register, Series } from './pages';
+import { Home, Login, Movies, MyProfilePage, NotFound, Register, Series } from './pages';
 
 import { Loading } from './components';
 
@@ -63,6 +63,17 @@ function App() {
           path="series"
           element={
             isAuth ? <Series /> : <Navigate replace to="/iniciar-sesion" />
+          }
+        />
+
+        <Route
+          path="mi-perfil"
+          element={
+            isAuth ? (
+              <MyProfilePage />
+            ) : (
+              <Navigate replace to="/iniciar-sesion" />
+            )
           }
         />
 

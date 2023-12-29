@@ -147,7 +147,7 @@ const register = () => {
                 {imageFieldForm}
               </div>
 
-              <div className="formFieldsWrapper">
+              <div className="registerPageFormFieldsWrapper">
                 <div className="formField">
                   <input
                     ref={inputRef}

@@ -1,0 +1,72 @@
+/* * Start ProfileOptions Popup */
+.profileOptionsPopup {
+  position: absolute;
+  right: 20px;
+  /* top: 5px; */
+  z-index: 9999;
+  /* padding-right: 20px; */
+  margin-top: 5px;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  background-color: var(--main-bg-color);
+  border: 1px solid #bbb;
+  padding: 20px;
+  border-radius: var(--br);
+  align-items: flex-start;
+  opacity: 0;
+
+  -webkit-animation-name: growIn;
+  animation-name: growIn;
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+  -webkit-animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1),
+    opacity cubic-bezier(0, 1, 0.4, 1);
+  animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1),
+    opacity cubic-bezier(0, 1, 0.4, 1);
+
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+  /* display: none; */
+}
+.profileOptionsPopup.active {
+  opacity: 1;
+  /* display: block; */
+}
+
+.profileOptionsPopup hr {
+  width: 100%;
+  border-radius: var(--br);
+  border: 1px solid #bbb;
+}
+
+.profileOptionsPopup button {
+  font-size: var(--font-size-small);
+  width: 100%;
+  text-align: left;
+}
+/* * End ProfileOptions Popup */
+
+/* Profile toggle animations */
+@-webkit-keyframes growIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes growIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

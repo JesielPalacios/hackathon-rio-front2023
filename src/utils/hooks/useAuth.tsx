@@ -110,7 +110,9 @@ export const useAuth = () => {
     const email = getControl(elements.namedItem('email'))!;
     const password = getControl(elements.namedItem('password'))!;
 
-    email.value = 'jesielvirtualsa@gmail.com';
+    // email.value = 'jesielvirtualsa@gmail.com';
+    // password.value = '1234567890';
+    email.value = 'jesielto14@gmail.com';
     password.value = '1234567890';
 
     if (email.value != '' && password.value != '') {

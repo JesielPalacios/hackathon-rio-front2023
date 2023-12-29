@@ -1,5 +1,4 @@
 //@ts-nocheck
-'use client';
 import { createContext, useEffect, useReducer, useState } from 'react';
 
 type StateType = {
