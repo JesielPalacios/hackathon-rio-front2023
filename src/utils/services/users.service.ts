@@ -20,9 +20,10 @@ export async function loginService({
     // .then((data) => {
     //   console.log('server is up');
     // })
-    .catch((error) => {
-      console.error('Error:', error);
-      console.log('server is down!!');
+    .catch((err) => {
+      // console.log('Error:', {error});
+      // console.log('server is down!!');
+      return err
     });
 }
 
@@ -51,6 +52,30 @@ export async function registerService(data: any) {
     },
     body: formData,
     // body: JSON.stringify({ ...data }),
+  }).catch((err) => {
+    // console.log('Error:', {error});
+    // console.log('server is down!!');
+    return err;
+  });
+}
+
+export async function updateUserImageService(
+  data: any,
+  id: string,
+  token: string
+) {
+  let formData = new FormData();
+
+  for (const [key, value] of Object.entries(data)) {
+    value && formData.append(`${key}`, value);
+  }
+
+  return await fetch(config.API_HOST + '/client/' + id, {
+    method: 'PUT',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+    body: formData,
   });
 }
 

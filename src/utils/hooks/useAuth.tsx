@@ -65,43 +65,54 @@ export const useAuth = () => {
     }
   }
 
-  const login = useCallback(
+  const login =
+    //  useCallback(
     ({ email, password }: LoginAuthProps) => {
       dispatch(loginStart());
 
-      loginService({ email, password }).then(async (response: any) => {
-        const data = await response.json();
+      try {
+        loginService({ email, password }).then(async (response: any) => {
+          if (response.message === 'Failed to fetch') {
+            toast.error('El servidor no responde.');
+            return;
+          }
 
-        if (response.status === 200) {
-          dispatch(loginSuccess(data));
+          const data = await response.json();
 
-          setState({ loading: false, error: false });
+          if (response.status === 200) {
+            dispatch(loginSuccess(data));
 
-          currentUser &&
-            toast.success(
-              currentUser.gender === 'Masculino'
-                ? 'Bienvenido ' +
-                    capitalizeFirstLetter(
-                      currentUser.firstName + ' ' + currentUser.firstSurname
-                    )
-                : 'Bienvenida ' +
-                    capitalizeFirstLetter(
-                      currentUser.firstName + ' ' + currentUser.firstSurname
-                    )
-            );
-        } else {
-          dispatch(loginFailure());
+            setState({ loading: false, error: false });
 
-          data.message && toast.error(data.message);
-          !data.message &&
-            toast.error(
-              'Ocurrió un error, inténtelo más tarde o comuníquese con nuestro equipo de soporte técnico.'
-            );
-        }
-      });
-    },
-    [loginStart, loginSuccess, loginFailure]
-  );
+            currentUser &&
+              toast.success(
+                currentUser.gender === 'Masculino'
+                  ? 'Bienvenido ' +
+                      capitalizeFirstLetter(
+                        currentUser.firstName + ' ' + currentUser.firstSurname
+                      )
+                  : 'Bienvenida ' +
+                      capitalizeFirstLetter(
+                        currentUser.firstName + ' ' + currentUser.firstSurname
+                      )
+              );
+          } else {
+            dispatch(loginFailure());
+
+            data.message && toast.error(data.message);
+            !data.message &&
+              toast.error(
+                'Ocurrió un error, inténtelo más tarde o comuníquese con nuestro equipo de soporte técnico.'
+              );
+          }
+        });
+      } catch (err) {
+        // console.log('err', err);
+      }
+    };
+  // ,
+  // [loginStart, loginSuccess, loginFailure]
+  // );
 
   function handleLoginSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -357,6 +368,11 @@ export const useAuth = () => {
     registerService(newUserRegister).then(async (response: any) => {
       //
       try {
+        if (response.message === 'Failed to fetch') {
+          toast.error('El servidor no responde.');
+          return;
+        }
+
         const data = await response.json();
 
         if (response.status === 201) {
@@ -409,6 +425,12 @@ export const useAuth = () => {
     });
   }
 
+  function handleCurrentAuthProfile() {}
+
+  function handleUpdateCurrentAuthImage(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  }
+
   // console.log('isFetching', isFetching);
   return {
     logOut: () => dispatch(logOut()),
@@ -423,5 +445,7 @@ export const useAuth = () => {
     dispatch,
     isAuth,
     newUserRegister,
+    handleCurrentAuthProfile,
+    handleUpdateCurrentAuthImage,
   };
 };
